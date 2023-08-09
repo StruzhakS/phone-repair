@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import s from './AddPhoneModal.module.css';
-import { useDispatch } from 'react-redux';
 import { addPhoneOperation } from 'Strore/Phones/Operations';
+import { useDispatch } from 'react-redux';
 Modal.setAppElement('#root');
 const customStyles = {
   content: {
