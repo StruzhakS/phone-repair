@@ -1,0 +1,21 @@
+.phoneItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+}
+
+.positiveProffit {
+  font-weight: bold;
+  color: rgb(20, 233, 20);
+}
+
+.negativeProffit {
+  font-weight: bold;
+  color: red;
+}
+
+.modelTitle {
+  position: relative;
+}
