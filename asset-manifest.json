@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/react-homework-template/static/css/main.4e0b83b8.css",
-    "main.js": "/react-homework-template/static/js/main.177cb786.js",
-    "index.html": "/react-homework-template/index.html",
-    "main.4e0b83b8.css.map": "/react-homework-template/static/css/main.4e0b83b8.css.map",
-    "main.177cb786.js.map": "/react-homework-template/static/js/main.177cb786.js.map"
+    "main.css": "/phone-repair/static/css/main.4e0b83b8.css",
+    "main.js": "/phone-repair/static/js/main.177cb786.js",
+    "index.html": "/phone-repair/index.html",
+    "main.4e0b83b8.css.map": "/phone-repair/static/css/main.4e0b83b8.css.map",
+    "main.177cb786.js.map": "/phone-repair/static/js/main.177cb786.js.map"
   },
   "entrypoints": [
     "static/css/main.4e0b83b8.css",
