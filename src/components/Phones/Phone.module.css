@@ -1,9 +1,23 @@
 .phoneItem {
+  padding: 10px;
+  flex-direction: row;
+  width: 100%;
+  margin: 0 auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 20px;
   position: relative;
+  width: 300px;
+  border: 1px solid black;
+}
+
+@media screen and (min-width: 768px) {
+  .phoneItem {
+    flex-direction: row;
+    width: 100%;
+  }
 }
 
 .positiveProffit {
@@ -36,4 +50,27 @@
 }
 .closeChangeModal:hover {
   color: grey;
+}
+
+.btnsWrapper {
+  display: flex;
+  gap: 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .btnsWrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.changeButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  font-size: 28px;
+  cursor: pointer;
+  background-color: rgb(247, 137, 11);
 }

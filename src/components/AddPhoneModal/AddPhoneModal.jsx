@@ -3,9 +3,14 @@ import Modal from 'react-modal';
 import s from './AddPhoneModal.module.css';
 import { addPhoneOperation } from 'Strore/Phones/Operations';
 import { useDispatch } from 'react-redux';
+import { AiOutlineClose } from 'react-icons/ai';
+
 Modal.setAppElement('#root');
 const customStyles = {
   content: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
     top: '50%',
     left: '50%',
     right: 'auto',
@@ -55,16 +60,21 @@ const AddPhoneModal = () => {
   };
 
   return (
-    <>
-      <button onClick={() => setIsOpen(true)}>Add phone</button>
+    <div className={s.addPhoneBtn}>
+      <button onClick={() => setIsOpen(true)} className={s.addPhoneBtn}>
+        Add phone
+      </button>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={() => setIsOpen(false)}
         style={customStyles}
         contentLabel="Example Modal"
+        className={s.addPhoneModal}
       >
         <h2>Добавити телефон</h2>
-        <button onClick={() => setIsOpen(false)}>close</button>
+        <button onClick={() => setIsOpen(false)} className={s.closeBtn}>
+          {AiOutlineClose()}
+        </button>
         <form className={s.form}>
           <input
             onChange={handleChange}
@@ -95,11 +105,11 @@ const AddPhoneModal = () => {
             value={form.note}
           />
         </form>
-        <button type="submit" onClick={handleAdd}>
+        <button type="submit" onClick={handleAdd} className={s.addPhoneBtn}>
           Add Phone
         </button>
       </Modal>
-    </>
+    </div>
   );
 };
 

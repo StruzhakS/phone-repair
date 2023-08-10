@@ -47,9 +47,11 @@ const Phone = ({ el, i, proffit }) => {
       <p className={proffit > 0 ? s.positiveProffit : s.negativeProffit}>
         Прибуток: {proffit}
       </p>
-      <div>
+      <div className={s.btnsWrapper}>
         <Button id={el.id} note={el?.Note} />
-        <button onClick={() => setIsOpen(true)}>{PiNotePencil()}</button>
+        <button onClick={() => setIsOpen(true)} className={s.changeButton}>
+          {PiNotePencil()}
+        </button>
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={() => setIsOpen(false)}

@@ -2,6 +2,17 @@
   position: relative;
 }
 
+.changeButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  font-size: 28px;
+  cursor: pointer;
+  background-color: rgb(247, 137, 11);
+}
+
 .closeChangeModal {
   display: flex;
   justify-content: center;

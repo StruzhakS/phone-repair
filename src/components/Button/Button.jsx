@@ -58,7 +58,7 @@ const Button = ({ id }) => {
   return (
     <>
       <div>
-        <button onClick={handleChangeField} className={s.changeButton}>
+        <button onClick={handleChangeField} className={sty.changeButton}>
           {CiEdit()}
         </button>
         <Modal
@@ -121,7 +121,9 @@ const Button = ({ id }) => {
           </button>
         </Modal>
       </div>
-      <button onClick={handleClick}>{MdOutlineDeleteOutline()}</button>
+      <button onClick={handleClick} className={s.changeButton}>
+        {MdOutlineDeleteOutline()}
+      </button>
     </>
   );
 };
