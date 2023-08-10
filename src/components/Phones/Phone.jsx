@@ -46,7 +46,7 @@ const Phone = ({ el, i, proffit }) => {
       <h2 className={s.modelTitle}>Модель: {el?.Model}</h2>
       <p>Взяв телефон за: {el?.Price || 0}</p>
       <p>Ціна запчастин: {el?.Detailprice}</p>
-      <p> {el.Sold_for > 0 ? `Продано за: ${el.Sold_for}` : 'Не продано'}</p>
+      <p> {el.Sold_for > 0 ? `Продаю за: ${el.Sold_for}` : 'Не продано'}</p>
       <p className={proffit > 0 ? s.positiveProffit : s.negativeProffit}>
         Прибуток: {proffit}
       </p>

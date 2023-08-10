@@ -94,7 +94,7 @@ const Button = ({ id }) => {
               placeholder="Введи витрати на деталі"
               value={phone.Detailprice}
             />
-            <label htmlFor="Sold_for">Продано за</label>
+            <label htmlFor="Sold_for">Продаю за</label>
             <input
               onChange={handleChange}
               type="number"
