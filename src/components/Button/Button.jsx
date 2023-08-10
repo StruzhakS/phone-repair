@@ -11,6 +11,7 @@ import { getPhoneByIdApi } from 'PhonesApi';
 import st from '../AddPhoneModal/AddPhoneModal.module.css';
 import sty from './Button.module.css';
 import { AiOutlineClose } from 'react-icons/ai';
+import { MdOutlineDeleteOutline } from 'react-icons/md';
 
 const customStyles = {
   content: {
@@ -27,6 +28,9 @@ const Button = ({ id }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const dispatch = useDispatch();
   const handleClick = () => {
+    if (!window.confirm('Ти реально хочеш видалити телефон ???')) {
+      return;
+    }
     dispatch(deletePhoneOperation(id));
   };
   const [phone, setPhone] = useState('');
@@ -117,7 +121,7 @@ const Button = ({ id }) => {
           </button>
         </Modal>
       </div>
-      <button onClick={handleClick}>Delete phone</button>
+      <button onClick={handleClick}>{MdOutlineDeleteOutline()}</button>
     </>
   );
 };

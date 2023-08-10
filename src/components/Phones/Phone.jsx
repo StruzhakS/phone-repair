@@ -4,6 +4,9 @@ import Modal from 'react-modal';
 import Button from 'components/Button/Button';
 import { useDispatch } from 'react-redux';
 import { updateStatusPhoneOperation } from 'Strore/Phones/Operations';
+import { AiOutlineClose } from 'react-icons/ai';
+import { PiNotePencil } from 'react-icons/pi';
+
 const customStyles = {
   content: {
     top: '50%',
@@ -38,15 +41,15 @@ const Phone = ({ el, i, proffit }) => {
       <p>Продано</p>
       <input type="checkbox" checked={el.isSold} onChange={handleChecked} />
       <h2 className={s.modelTitle}>Модель: {el?.Model}</h2>
-      <p>Ціна телефону: {el?.Price || 0}</p>
+      <p>Взяв телефон за: {el?.Price || 0}</p>
       <p>Ціна запчастин: {el?.Detailprice}</p>
+      <p> {el.Sold_for > 0 ? `Продано за: ${el.Sold_for}` : 'Не продано'}</p>
       <p className={proffit > 0 ? s.positiveProffit : s.negativeProffit}>
         Прибуток: {proffit}
       </p>
-      <p>Продано за: {el.Sold_for ? el.Sold_for : 'Не продано'}</p>
-      <Button id={el.id} note={el?.Note} />
       <div>
-        <button onClick={() => setIsOpen(true)}>Примітки</button>
+        <Button id={el.id} note={el?.Note} />
+        <button onClick={() => setIsOpen(true)}>{PiNotePencil()}</button>
         <Modal
           isOpen={modalIsOpen}
           onRequestClose={() => setIsOpen(false)}
@@ -55,7 +58,12 @@ const Phone = ({ el, i, proffit }) => {
         >
           <h2>Примітка до {el?.Model}</h2>
           <p>{el?.Note}</p>
-          <button onClick={() => setIsOpen(false)}>close</button>
+          <button
+            onClick={() => setIsOpen(false)}
+            className={s.closeChangeModal}
+          >
+            {AiOutlineClose()}
+          </button>
         </Modal>
       </div>
     </li>
