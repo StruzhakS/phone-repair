@@ -4,7 +4,7 @@ import s from './AddPhoneModal.module.css';
 import { addPhoneOperation } from 'Strore/Phones/Operations';
 import { useDispatch } from 'react-redux';
 import { AiOutlineClose } from 'react-icons/ai';
-
+import addPhome from '../../image/add_phone.png';
 Modal.setAppElement('#root');
 const customStyles = {
   content: {
@@ -62,7 +62,7 @@ const AddPhoneModal = () => {
   return (
     <div className={s.addPhoneBtn}>
       <button onClick={() => setIsOpen(true)} className={s.addPhoneBtn}>
-        Add phone
+        <img src={addPhome} alt="" />
       </button>
       <Modal
         isOpen={modalIsOpen}

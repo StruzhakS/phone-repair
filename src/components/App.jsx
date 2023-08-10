@@ -54,6 +54,7 @@ export const App = () => {
           <option value="not_sold">Не продані</option>
         </select>
         <input
+          className={s.searchField}
           type="text"
           placeholder="Пошук по номеру"
           onChange={filterPhonesByIdFunction}
