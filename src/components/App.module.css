@@ -9,4 +9,12 @@
 .filterSelect {
   display: block;
   margin: 20px auto;
+  height: 20px;
+}
+.topWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 600px;
+  margin: 0 auto;
 }

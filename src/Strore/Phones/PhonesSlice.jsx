@@ -16,6 +16,10 @@ export const phonesSlice = createSlice({
       ...state,
       filter: action.payload,
     }),
+    filterPhonesById: (state, action) => ({
+      ...state,
+      filterById: action.payload,
+    }),
   },
   extraReducers: builder => {
     builder
@@ -85,4 +89,4 @@ export const phonesSlice = createSlice({
 });
 
 export const phoneReducer = phonesSlice.reducer;
-export const { filterPhones } = phonesSlice.actions;
+export const { filterPhones, filterPhonesById } = phonesSlice.actions;

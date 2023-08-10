@@ -38,8 +38,11 @@ const Phone = ({ el, i, proffit }) => {
       }
       key={i}
     >
-      <p>Продано</p>
-      <input type="checkbox" checked={el.isSold} onChange={handleChecked} />
+      <div className={s.checkBox}>
+        <p>Продано</p>
+        <input type="checkbox" checked={el.isSold} onChange={handleChecked} />
+      </div>
+      <p className={s.numberOfPhone}>#{el.id}</p>
       <h2 className={s.modelTitle}>Модель: {el?.Model}</h2>
       <p>Взяв телефон за: {el?.Price || 0}</p>
       <p>Ціна запчастин: {el?.Detailprice}</p>
