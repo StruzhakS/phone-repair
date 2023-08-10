@@ -1,6 +1,6 @@
 const initialState = {
   phones: [],
-  filter: '',
+  filter: 'all',
   isLoading: false,
   error: '',
 };

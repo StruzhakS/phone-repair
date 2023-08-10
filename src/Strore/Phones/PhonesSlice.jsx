@@ -4,18 +4,19 @@ import {
   deletePhoneOperation,
   getallPhonesOperation,
   updatePhoneModelOperation,
+  updateStatusPhoneOperation,
 } from './Operations';
 import initialState from './initialState';
 
 export const phonesSlice = createSlice({
   name: 'Phones',
   initialState,
-  //   reducers: {
-  //     filterContactAction: (state, action) => ({
-  //       ...state,
-  //       filter: action.payload,
-  //     }),
-  //   },
+  reducers: {
+    filterPhones: (state, action) => ({
+      ...state,
+      filter: action.payload,
+    }),
+  },
   extraReducers: builder => {
     builder
       .addCase(getallPhonesOperation.pending, state => {
@@ -66,10 +67,22 @@ export const phonesSlice = createSlice({
       .addCase(updatePhoneModelOperation.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.error = payload;
+      })
+      .addCase(updateStatusPhoneOperation.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(updateStatusPhoneOperation.fulfilled, (state, { payload }) => {
+        const findIndex = state.phones.findIndex(el => el.id === payload.id);
+        state.isLoading = false;
+        state.error = null;
+        state.phones[findIndex] = payload;
+      })
+      .addCase(updateStatusPhoneOperation.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.error = payload;
       });
   },
 });
 
 export const phoneReducer = phonesSlice.reducer;
-// export const { addContactAction, deleteContactAction, filterContactAction } =
-//   contactSlice.actions;
+export const { filterPhones } = phonesSlice.actions;

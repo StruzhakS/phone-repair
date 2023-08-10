@@ -7,6 +7,10 @@ import {
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import s from '../Phones/Phone.module.css';
+import { getPhoneByIdApi } from 'PhonesApi';
+import st from '../AddPhoneModal/AddPhoneModal.module.css';
+import sty from './Button.module.css';
+import { AiOutlineClose } from 'react-icons/ai';
 
 const customStyles = {
   content: {
@@ -21,24 +25,36 @@ const customStyles = {
 
 const Button = ({ id }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [changeName, setChangeName] = useState('');
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(deletePhoneOperation(id));
   };
+  const [phone, setPhone] = useState('');
 
-  const changedField = { id, Model: changeName };
+  const changedField = { id, phone };
 
-  const handleChanged = () => {
+  const handleUpdatePhone = () => {
     dispatch(updatePhoneModelOperation(changedField));
     setIsOpen(false);
-    setChangeName('');
+  };
+
+  const handleChangeField = async () => {
+    const phoneTOUpdate = await getPhoneByIdApi(id);
+    setPhone(phoneTOUpdate);
+    setIsOpen(true);
+  };
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setPhone(prevPhone => {
+      return { ...prevPhone, [name]: value };
+    });
   };
 
   return (
     <>
       <div>
-        <button onClick={() => setIsOpen(true)} className={s.changeButton}>
+        <button onClick={handleChangeField} className={s.changeButton}>
           {CiEdit()}
         </button>
         <Modal
@@ -46,17 +62,59 @@ const Button = ({ id }) => {
           onRequestClose={() => setIsOpen(false)}
           style={customStyles}
           contentLabel="Example Modal"
+          className={s.changeModal}
         >
-          <h2>Змінити ім"я</h2>
-          <input
-            type="text"
-            name="changeName"
-            value={changeName}
-            onChange={e => setChangeName(e.target.value)}
-          />
-          <button onClick={handleChanged}>Змінити</button>
+          <h2>Змінити параметри</h2>
+          <form className={st.form}>
+            <label htmlFor="Model">Модель телефону</label>
+            <input
+              onChange={handleChange}
+              type="text"
+              name="Model"
+              placeholder="Введи модель телефону"
+              value={phone.Model}
+            />
+            <label htmlFor="Price">Ціна телефону</label>
+            <input
+              onChange={handleChange}
+              type="number"
+              name="Price"
+              placeholder="Введи ціну телефону"
+              value={phone.Price}
+            />
+            <label htmlFor="Detailprice">Витрати на деталі</label>
+            <input
+              onChange={handleChange}
+              type="number"
+              name="Detailprice"
+              placeholder="Введи витрати на деталі"
+              value={phone.Detailprice}
+            />
+            <label htmlFor="Sold_for">Продано за</label>
+            <input
+              onChange={handleChange}
+              type="number"
+              name="Sold_for"
+              placeholder="Продано за"
+              value={phone.Sold_for}
+            />
+            <label htmlFor="Note">Примітка</label>
+            <input
+              onChange={handleChange}
+              type="text"
+              name="Note"
+              placeholder="Введіть примітку"
+              value={phone.Note}
+            />
+          </form>
+          <button onClick={handleUpdatePhone}>Змінити</button>
 
-          <button onClick={() => setIsOpen(false)}>close</button>
+          <button
+            onClick={() => setIsOpen(false)}
+            className={sty.closeChangeModal}
+          >
+            {AiOutlineClose()}
+          </button>
         </Modal>
       </div>
       <button onClick={handleClick}>Delete phone</button>

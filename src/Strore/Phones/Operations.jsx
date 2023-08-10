@@ -4,6 +4,7 @@ import {
   deletePhoneApi,
   getPhonesApi,
   updateModelApi,
+  updateStatusPhoneApi,
 } from 'PhonesApi';
 
 export const getallPhonesOperation = createAsyncThunk(
@@ -46,6 +47,18 @@ export const updatePhoneModelOperation = createAsyncThunk(
   async (changedField, thunkAPI) => {
     try {
       const data = await updateModelApi(changedField);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateStatusPhoneOperation = createAsyncThunk(
+  'Phones/updateStatusPhone',
+  async (changedField, thunkAPI) => {
+    try {
+      const data = await updateStatusPhoneApi(changedField);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);

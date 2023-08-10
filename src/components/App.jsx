@@ -4,9 +4,12 @@ import Phone from './Phones/Phone';
 import { useDispatch, useSelector } from 'react-redux';
 import { getallPhonesOperation } from 'Strore/Phones/Operations';
 import AddPhoneModal from './AddPhoneModal/AddPhoneModal';
+import { filterPhones } from 'Strore/Phones/PhonesSlice';
 
 export const App = () => {
   const dispatch = useDispatch();
+  const filter = useSelector(state => state.phone.filter);
+  const phones = useSelector(state => state.phone.phones);
 
   useEffect(() => {
     const getAllPhones = async () => {
@@ -15,14 +18,32 @@ export const App = () => {
     getAllPhones();
   }, [dispatch]);
 
-  const phones = useSelector(state => state.phone.phones);
+  const visiblePhones = phones?.filter(el => {
+    if (filter === 'sold') {
+      return el.isSold === true;
+    }
+    if (filter === 'not_sold') {
+      return el.isSold === false;
+    }
+    return el;
+  });
 
   return (
     <>
+      <select
+        name="priority"
+        onChange={e => dispatch(filterPhones(e.target.value))}
+        value={filter}
+      >
+        <option value="all">Всі</option>
+        <option value="sold">Продані</option>
+        <option value="not_sold">Не продані</option>
+      </select>
       <ul>
-        {phones &&
-          phones.map((el, i) => {
-            return <Phone el={el} i={i} />;
+        {visiblePhones &&
+          visiblePhones.map((el, i) => {
+            const proffit = el?.Sold_for - el?.Price - el?.Detailprice;
+            return <Phone el={el} i={i} proffit={proffit} />;
           })}
       </ul>
       <AddPhoneModal />

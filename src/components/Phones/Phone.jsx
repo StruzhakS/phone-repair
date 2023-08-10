@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import s from './Phone.module.css';
 import Modal from 'react-modal';
 import Button from 'components/Button/Button';
+import { useDispatch } from 'react-redux';
+import { updateStatusPhoneOperation } from 'Strore/Phones/Operations';
 const customStyles = {
   content: {
     top: '50%',
@@ -12,19 +14,37 @@ const customStyles = {
     transform: 'translate(-50%, -50%)',
   },
 };
-const Phone = ({ el, i }) => {
+const Phone = ({ el, i, proffit }) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [check, setChecked] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const handleChecked = async () => {
+    setChecked(prev => !prev);
+    dispatch(updateStatusPhoneOperation({ id: el.id, check }));
+  };
 
   return (
-    <li className={s.phoneItem} key={i}>
+    <li
+      className={s.phoneItem}
+      style={
+        el.isSold
+          ? { backgroundColor: 'rgb(124, 246, 124)' }
+          : { backgroundColor: 'rgb(255, 249, 88)' }
+      }
+      key={i}
+    >
+      <p>Продано</p>
+      <input type="checkbox" checked={el.isSold} onChange={handleChecked} />
       <h2 className={s.modelTitle}>Модель: {el?.Model}</h2>
-      <p>Ціна телефону: {el?.Price}</p>
+      <p>Ціна телефону: {el?.Price || 0}</p>
       <p>Ціна запчастин: {el?.Detailprice}</p>
-      <p className={el?.Proffit > 0 ? s.positiveProffit : s.negativeProffit}>
-        Прибуток: {el.Sold_for === 0 ? 'Не продано' : el?.Proffit}
+      <p className={proffit > 0 ? s.positiveProffit : s.negativeProffit}>
+        Прибуток: {proffit}
       </p>
-      <p>Продано за: {el.Sold_for === 0 ? 'Не продано' : el.Sold_for}</p>
-      <Button id={el?.id} note={el?.Note} />
+      <p>Продано за: {el.Sold_for ? el.Sold_for : 'Не продано'}</p>
+      <Button id={el.id} note={el?.Note} />
       <div>
         <button onClick={() => setIsOpen(true)}>Примітки</button>
         <Modal
