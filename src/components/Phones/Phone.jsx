@@ -46,10 +46,12 @@ const Phone = ({ el, i, proffit }) => {
       <h2 className={s.modelTitle}>Модель: {el?.Model}</h2>
       <p>Взяв телефон за: {el?.Price || 0}</p>
       <p>Ціна запчастин: {el?.Detailprice}</p>
-      <p> {el.Sold_for > 0 ? `Продаю за: ${el.Sold_for}` : 'Не продано'}</p>
-      <p className={proffit > 0 ? s.positiveProffit : s.negativeProffit}>
-        Прибуток: {proffit}
-      </p>
+      <p>Продаю за: {el.Sold_for} </p>
+      {el.isSold && (
+        <p className={proffit > 0 ? s.positiveProffit : s.negativeProffit}>
+          Прибуток: {proffit}
+        </p>
+      )}
       <div className={s.btnsWrapper}>
         <Button id={el.id} note={el?.Note} />
         <button onClick={() => setIsOpen(true)} className={s.changeButton}>
