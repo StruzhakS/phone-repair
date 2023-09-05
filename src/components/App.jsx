@@ -56,7 +56,7 @@ export const App = () => {
         <input
           className={s.searchField}
           type="text"
-          placeholder="Пошук по номеру"
+          placeholder="Пошук по id-номеру"
           onChange={filterPhonesByIdFunction}
           value={filteredPhone}
         />
