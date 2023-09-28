@@ -72,7 +72,6 @@ const Phone = ({ el, i, proffit }) => {
             {AiOutlineClose()}
           </button>
         </Modal>
-        <button>vfcx</button>
       </div>
     </li>
   );
