@@ -71,7 +71,6 @@ const Phone = ({ el, i, proffit }) => {
           >
             {AiOutlineClose()}
           </button>
-          <p>Кнопка</p>
         </Modal>
       </div>
     </li>
