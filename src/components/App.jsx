@@ -65,7 +65,7 @@ export const App = () => {
         {caphones &&
           caphones.map((el, i) => {
             const proffit = el?.Sold_for - el?.Price - el?.Detailprice;
-            return <Phone el={el} i={i} proffit={proffit} />;
+            return <Phone key={i} el={el} i={i} proffit={proffit} />;
           })}
       </ul>
     </>
