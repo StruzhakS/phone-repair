@@ -23,3 +23,9 @@
 .searchField {
   width: 150px;
 }
+
+.proffitWrapper {
+  width: 330px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
