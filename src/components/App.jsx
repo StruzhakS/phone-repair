@@ -39,14 +39,12 @@ export const App = () => {
     dispatch(filterPhonesById(value));
   };
 
-  // console.log(phones);
+  const totalPricePerPhones = phones.reduce((acc, el) => acc + +el.Price, 0);
 
-  // const totalPricePerPhones = phones.reduce((acc, el) => acc + +el.Price, 0);
-
-  // const totalPricePerDetails = phones.reduce(
-  //   (acc, el) => acc + +el.Detailprice,
-  //   0
-  // );
+  const totalPricePerDetails = phones.reduce(
+    (acc, el) => acc + +el.Detailprice,
+    0
+  );
 
   const totalProffit = phones.reduce((acc, el) => {
     if (el.isSold) {
@@ -65,7 +63,7 @@ export const App = () => {
     }
     return acc;
   }, 0);
-  // console.log(totalPricePerDetails);
+
   return (
     <>
       <div className={s.topWrapper}>
@@ -89,8 +87,14 @@ export const App = () => {
         />
       </div>
       <div className={s.proffitWrapper}>
-        {/* <p>Куплено телефонів на: {totalPricePerPhones}</p>
-        <p>Куплено запчастин на: {totalPricePerDetails}</p> */}
+        <p>Куплено телефонів на: {totalPricePerPhones}</p>
+        <p>Куплено запчастин на: {totalPricePerDetails}</p>
+        <p>
+          Всього потрачено:
+          <span style={{ fontWeight: 'bold' }}>
+            {totalPricePerPhones + totalPricePerDetails}{' '}
+          </span>
+        </p>
         <p>
           Чистий прибуток:
           <span style={{ fontWeight: 'bold' }}> {totalProffit}</span>
@@ -98,7 +102,6 @@ export const App = () => {
         <p>
           Можливий прибуток продавши непродані телефони:
           <span style={{ fontWeight: 'bold' }}>
-            {' '}
             {possibleProffit} (постав правильну ціну на телефони)
           </span>
         </p>
