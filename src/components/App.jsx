@@ -51,14 +51,14 @@ export const App = () => {
     0
   );
 
-  const totalProffit = phones.reduce((acc, el) => {
-    if (el.isSold) {
-      return (
-        acc + Number(el?.Sold_for) - Number(el?.Price) - Number(el?.Detailprice)
-      );
-    }
-    return acc;
-  }, 0);
+  // const totalProffit = phones.reduce((acc, el) => {
+  //   if (el.isSold) {
+  //     return (
+  //       acc + Number(el?.Sold_for) - Number(el?.Price) - Number(el?.Detailprice)
+  //     );
+  //   }
+  //   return acc;
+  // }, 0);
 
   const possibleProffit = phones.reduce((acc, el) => {
     if (!el.isSold) {
