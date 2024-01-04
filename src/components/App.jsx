@@ -39,10 +39,15 @@ export const App = () => {
     dispatch(filterPhonesById(value));
   };
 
-  const totalPricePerPhones = phones.reduce((acc, el) => acc + +el.Price, 0);
+  console.log(phones);
+
+  const totalPricePerPhones = phones.reduce(
+    (acc, el) => acc + Number(el?.Price),
+    0
+  );
 
   const totalPricePerDetails = phones.reduce(
-    (acc, el) => acc + +el.Detailprice,
+    (acc, el) => acc + Number(el?.Detailprice),
     0
   );
 
@@ -60,6 +65,13 @@ export const App = () => {
       return (
         acc + Number(el?.Sold_for) - Number(el?.Price) - Number(el?.Detailprice)
       );
+    }
+    return acc;
+  }, 0);
+
+  const totalSoldPhones = phones.reduce((acc, el) => {
+    if (el.isSold) {
+      return acc + Number(el?.Sold_for);
     }
     return acc;
   }, 0);
@@ -92,12 +104,20 @@ export const App = () => {
         <p>
           Всього потрачено:
           <span style={{ fontWeight: 'bold' }}>
+            {' '}
             {totalPricePerPhones + totalPricePerDetails}{' '}
           </span>
         </p>
         <p>
+          Продано телефонів на:
+          <span style={{ fontWeight: 'bold' }}> {totalSoldPhones}</span>
+        </p>
+        <p>
           Чистий прибуток:
-          <span style={{ fontWeight: 'bold' }}> {totalProffit}</span>
+          <span style={{ fontWeight: 'bold' }}>
+            {' '}
+            {totalSoldPhones - (totalPricePerPhones + totalPricePerDetails)}
+          </span>
         </p>
         <p>
           Можливий прибуток продавши непродані телефони:
