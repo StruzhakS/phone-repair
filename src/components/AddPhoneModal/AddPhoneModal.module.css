@@ -4,16 +4,17 @@
   gap: 10px;
 }
 
-.addPhoneBtn {
+.openModalBtn {
   margin: 20px auto;
   text-align: center;
+  border: 0;
+  cursor: pointer;
+
   background-color: transparent;
-  color: black;
-  font-weight: bold;
-  padding: 6px 10px;
 }
-.addPhoneBtn:hover {
-  scale: 1.1;
+.addPhoneBtn:hover,
+.openModalBtn:hover {
+  scale: 1.03;
 }
 
 .closeBtn {
@@ -36,11 +37,38 @@
   color: grey;
 }
 
-/* .addPhoneModal {
-  display: flex;
-  flex-direction: column;
-} */
-
 .addPhoneBtn {
+  background: #ff4742;
+  border: 1px solid #ff4742;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #ffffff;
   cursor: pointer;
+  display: inline-block;
+  font-family: nunito, roboto, proxima-nova, 'proxima nova', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+}
+
+.addPhoneBtn:hover,
+.addPhoneBtn:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #ff4742;
+}
+
+.addPhoneBtn:active {
+  opacity: 0.5;
 }

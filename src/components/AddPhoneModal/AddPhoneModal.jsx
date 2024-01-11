@@ -60,8 +60,8 @@ const AddPhoneModal = () => {
   };
 
   return (
-    <div className={s.addPhoneBtn}>
-      <button onClick={() => setIsOpen(true)} className={s.addPhoneBtn}>
+    <div className={s.openModalBtn}>
+      <button onClick={() => setIsOpen(true)} className={s.openModalBtn}>
         <img src={addPhome} alt="" />
       </button>
       <Modal
