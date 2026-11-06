@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/phone-repair/static/css/main.eb73e923.css",
-    "main.js": "/phone-repair/static/js/main.bfc48a0d.js",
+    "main.css": "/phone-repair/static/css/main.954a6bf4.css",
+    "main.js": "/phone-repair/static/js/main.56743902.js",
     "index.html": "/phone-repair/index.html",
-    "main.eb73e923.css.map": "/phone-repair/static/css/main.eb73e923.css.map",
-    "main.bfc48a0d.js.map": "/phone-repair/static/js/main.bfc48a0d.js.map"
+    "main.954a6bf4.css.map": "/phone-repair/static/css/main.954a6bf4.css.map",
+    "main.56743902.js.map": "/phone-repair/static/js/main.56743902.js.map"
   },
   "entrypoints": [
-    "static/css/main.eb73e923.css",
-    "static/js/main.bfc48a0d.js"
+    "static/css/main.954a6bf4.css",
+    "static/js/main.56743902.js"
   ]
 }
