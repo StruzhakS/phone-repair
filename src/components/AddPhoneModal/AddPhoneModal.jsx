@@ -1,115 +1,174 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import s from './AddPhoneModal.module.css';
-import { addPhoneOperation } from 'Strore/Phones/Operations';
 import { useDispatch } from 'react-redux';
-import { AiOutlineClose } from 'react-icons/ai';
-import addPhome from '../../image/add_phone.png';
+import { addPhoneOperation } from 'Strore/Phones/Operations';
+import { validatePhone } from '../../utils/phones';
+import s from './AddPhoneModal.module.css';
+
 Modal.setAppElement('#root');
-const customStyles = {
-  content: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
+
 const AddPhoneModal = () => {
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
-  const [form, setForm] = useState({
-    model: '',
-    price: '',
-    detailPrice: '',
-    note: '',
+  const [errors, setErrors] = useState({});
+  const [formData, setFormData] = useState({
+    Model: '',
+    Price: '',
+    Detailprice: '',
+    Sold_for: '',
+    Note: '',
   });
-  const handleAdd = async () => {
-    const phone = {
-      Model: form.model,
-      Price: form.price,
-      Detailprice: form.detailPrice,
-      Proffit:
-        form.Sold_for > 0 ? form.Sold_for - (form.price + form.detailPrice) : 0,
-      Note: form.note,
-      Sold_for: 0,
-    };
-    dispatch(addPhoneOperation(phone));
+
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => {
     setIsOpen(false);
-    formReset();
+    setErrors({});
+    setFormData({
+      Model: '',
+      Price: '',
+      Detailprice: '',
+      Sold_for: '',
+      Note: '',
+    });
   };
 
-  const handleChange = e => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setForm(prevForm => {
-      return { ...prevForm, [name]: value };
-    });
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }));
+    setErrors(prev => ({ ...prev, [name]: undefined }));
   };
 
-  const formReset = () => {
-    setForm({
-      model: '',
-      price: '',
-      detailPrice: '',
-      note: '',
-    });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    const validationErrors = validatePhone(formData);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    dispatch(addPhoneOperation({ ...formData, Model: formData.Model.trim() }));
+    closeModal();
   };
 
   return (
-    <div className={s.openModalBtn}>
-      <button onClick={() => setIsOpen(true)} className={s.openModalBtn}>
-        <img src={addPhome} alt="" />
+    <>
+      <button onClick={openModal} className={s.openButton}>
+        ➕ Додати телефон
       </button>
+
       <Modal
         isOpen={modalIsOpen}
-        onRequestClose={() => setIsOpen(false)}
-        style={customStyles}
-        contentLabel="Example Modal"
-        className={s.addPhoneModal}
+        onRequestClose={closeModal}
+        className={s.modal}
+        overlayClassName={s.overlay}
       >
-        <h2>Добавити телефон</h2>
-        <button onClick={() => setIsOpen(false)} className={s.closeBtn}>
-          {AiOutlineClose()}
-        </button>
-        <form className={s.form}>
-          <input
-            onChange={handleChange}
-            type="text"
-            name="model"
-            placeholder="Введи модель телефону"
-            value={form.model}
-          />
-          <input
-            onChange={handleChange}
-            type="number"
-            name="price"
-            placeholder="Введи ціну телефону"
-            value={form.price}
-          />
-          <input
-            onChange={handleChange}
-            type="number"
-            name="detailPrice"
-            placeholder="Введи витрати на деталі"
-            value={form.detailPrice}
-          />
-          <input
-            onChange={handleChange}
-            type="text"
-            name="note"
-            placeholder="Введіть примітку"
-            value={form.note}
-          />
-        </form>
-        <button type="submit" onClick={handleAdd} className={s.addPhoneBtn}>
-          Add Phone
-        </button>
+        <div className={s.modalContent}>
+          <div className={s.modalHeader}>
+            <h2>📱 Додати новий телефон</h2>
+            <button
+              className={s.closeButton}
+              onClick={closeModal}
+              aria-label="Close modal"
+            >
+              ✕
+            </button>
+          </div>
+
+          <form onSubmit={handleSubmit} className={s.form} noValidate>
+            <div className={s.formGroup}>
+              <label htmlFor="Model">Модель телефону *</label>
+              <input
+                id="Model"
+                type="text"
+                name="Model"
+                placeholder="Наприклад: iPhone 14 Pro"
+                value={formData.Model}
+                onChange={handleInputChange}
+                className={s.input}
+                required
+              />
+              {errors.Model && <p className={s.error}>{errors.Model}</p>}
+            </div>
+
+            <div className={s.twoColumns}>
+              <div className={s.formGroup}>
+                <label htmlFor="Price">Вартість телефону (₴) *</label>
+                <input
+                  id="Price"
+                  type="number"
+                  name="Price"
+                  placeholder="5000"
+                  min="0"
+                  value={formData.Price}
+                  onChange={handleInputChange}
+                  className={s.input}
+                  required
+                />
+                {errors.Price && <p className={s.error}>{errors.Price}</p>}
+              </div>
+
+              <div className={s.formGroup}>
+                <label htmlFor="Detailprice">Вартість запчастин (₴) *</label>
+                <input
+                  id="Detailprice"
+                  type="number"
+                  name="Detailprice"
+                  placeholder="500"
+                  min="0"
+                  value={formData.Detailprice}
+                  onChange={handleInputChange}
+                  className={s.input}
+                  required
+                />
+                {errors.Detailprice && <p className={s.error}>{errors.Detailprice}</p>}
+              </div>
+            </div>
+
+            <div className={s.formGroup}>
+              <label htmlFor="Sold_for">Ціна продажу (₴) *</label>
+              <input
+                id="Sold_for"
+                type="number"
+                name="Sold_for"
+                placeholder="7000"
+                min="0"
+                value={formData.Sold_for}
+                onChange={handleInputChange}
+                className={s.input}
+                required
+              />
+              {errors.Sold_for && <p className={s.error}>{errors.Sold_for}</p>}
+            </div>
+
+            <div className={s.formGroup}>
+              <label htmlFor="Note">Примітка</label>
+              <textarea
+                id="Note"
+                name="Note"
+                placeholder="Додаткова інформація про телефон..."
+                value={formData.Note}
+                onChange={handleInputChange}
+                className={s.textarea}
+                rows="3"
+              />
+            </div>
+
+            <div className={s.buttonGroup}>
+              <button type="button" onClick={closeModal} className={s.cancelButton}>
+                Скасувати
+              </button>
+              <button type="submit" className={s.submitButton}>
+                Додати телефон
+              </button>
+            </div>
+          </form>
+        </div>
       </Modal>
-    </div>
+    </>
   );
 };
 

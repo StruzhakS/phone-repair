@@ -1,34 +1,64 @@
-/* @import-normalize; bring in normalize.css styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --surface: #ffffff;
+  --bg-from: #f9fafb;
+  --bg-to: #f3f4f6;
+  --row-hover: #f9fafb;
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --secondary: #8b5cf6;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --light: #f9fafb;
+  --dark: #1f2937;
+  --border: #e5e7eb;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --surface: #1f2937;
+  --bg-from: #111827;
+  --bg-to: #0b1220;
+  --row-hover: #273244;
+  --light: #273244;
+  --border: #374151;
+  --text-primary: #f3f4f6;
+  --text-secondary: #9ca3af;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  color-scheme: dark;
+}
+
+input,
+select,
+textarea {
+  background-color: var(--surface);
+  color: var(--text-primary);
+}
 
 body {
-  margin: 0 auto;
-  width: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding: 0 30px;
-  background: #00c3ff; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #ffff1c,
-    #00c3ff
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #ffff1c,
-    #00c3ff
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(135deg, var(--bg-from) 0%, var(--bg-to) 100%);
+  color: var(--text-primary);
+  min-height: 100vh;
 }
 
-h1,
-h2,
-h3,
-ul,
-p {
-  margin: 0;
-  padding: 0;
+html {
+  scroll-behavior: smooth;
 }
 
 code {
@@ -36,6 +66,27 @@ code {
     monospace;
 }
 
-#root {
-  padding-bottom: 40px;
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--primary);
+  color: white;
 }

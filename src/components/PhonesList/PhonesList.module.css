@@ -1,0 +1,271 @@
+.listContainer {
+  background: var(--surface);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  margin: 2rem 0;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.table thead {
+  background: linear-gradient(135deg, var(--bg-from) 0%, var(--bg-to) 100%);
+  border-bottom: 2px solid var(--border);
+}
+
+.table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.tableRow {
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.2s ease;
+}
+
+.tableRow:hover {
+  background-color: var(--row-hover);
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.table td {
+  padding: 1rem;
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+.idCell {
+  font-weight: 600;
+  color: var(--primary);
+  font-family: 'Courier New', monospace;
+}
+
+.modelCell {
+  font-weight: 500;
+}
+
+.modelInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.modelName {
+  display: block;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.note {
+  cursor: help;
+  font-size: 1.1rem;
+}
+
+.statusBadge {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.statusBadge.sold {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.statusBadge.sold:hover {
+  background-color: #bbf7d0;
+}
+
+.statusBadge.notSold {
+  background-color: #fecaca;
+  color: #991b1b;
+}
+
+.statusBadge.notSold:hover {
+  background-color: #fca5a5;
+}
+
+.profitPositive {
+  color: var(--success);
+  font-weight: 700;
+}
+
+.profitNegative {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+.actionsCell {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.editButton,
+.deleteButton {
+  padding: 0.5rem 0.75rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.editButton:hover {
+  background-color: #dbeafe;
+}
+
+.deleteButton:hover {
+  background-color: #fee2e2;
+}
+
+.emptyState {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 4rem 2rem;
+  text-align: center;
+  box-shadow: var(--shadow);
+  margin: 2rem 0;
+}
+
+.emptyIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.emptyText {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.emptySubtext {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.summary {
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.summary p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.summary strong {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+  .table th,
+  .table td {
+    padding: 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .actionsCell {
+    gap: 0.25rem;
+  }
+
+  .editButton,
+  .deleteButton {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .tableWrapper {
+    overflow-x: auto;
+  }
+
+  .table {
+    min-width: 600px;
+  }
+
+  .summary {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.pageButton {
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text-primary);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pageButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pageInfo {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.pageSize {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.pageSizeSelect {
+  padding: 0.5rem 0.75rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text-primary);
+  font-weight: 600;
+  cursor: pointer;
+}

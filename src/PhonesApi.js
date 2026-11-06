@@ -14,13 +14,15 @@ export const getPhoneByIdApi = async id => {
 };
 
 export const addPhoneApi = user => {
-  const phone = axios.post('/Phones', user);
+  const phone = axios.post('/Phones', {
+    ...user,
+    addedAt: new Date().toISOString(),
+  });
   return phone;
 };
 
 export const deletePhoneApi = async id => {
   const phone = await axios.delete(`/Phones/${id}`);
-
   return phone.data;
 };
 
@@ -29,7 +31,6 @@ export const updateModelApi = async changeData => {
     Model: changeData.phone.Model,
     Price: changeData.phone.Price,
     Detailprice: changeData.phone.Detailprice,
-    Proffit: changeData.phone.Proffit,
     Sold_for: changeData.phone.Sold_for,
     Note: changeData.phone.Note,
   });
@@ -37,6 +38,9 @@ export const updateModelApi = async changeData => {
 };
 
 export const updateStatusPhoneApi = async ({ id, check }) => {
-  const { data } = await axios.put(`/Phones/${id}/`, { isSold: !check });
+  const { data } = await axios.put(`/Phones/${id}/`, {
+    isSold: !check,
+    soldAt: !check ? new Date().toISOString() : null,
+  });
   return data;
 };
