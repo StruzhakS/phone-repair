@@ -1,46 +1,69 @@
-import axios from 'axios';
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
+import { db } from './firebase';
 
-axios.defaults.baseURL =
-  'https://64870eb0beba6297278fcbfc.mockapi.io/Phonebook/';
+const phonesRef = collection(db, 'Phones');
+
+// Document id equals the numeric phone id, so ids stay short and sequential
+const toPhone = snapshot => ({ ...snapshot.data(), id: Number(snapshot.id) });
 
 export const getPhonesApi = async () => {
-  const phones = await axios.get('/Phones').then(({ data }) => data);
-  return phones;
+  const snapshot = await getDocs(phonesRef);
+  return snapshot.docs.map(toPhone);
 };
 
 export const getPhoneByIdApi = async id => {
-  const { data } = await axios.get(`/Phones/${id}`);
-  return data;
+  const snapshot = await getDoc(doc(phonesRef, String(id)));
+  return toPhone(snapshot);
 };
 
-export const addPhoneApi = user => {
-  const phone = axios.post('/Phones', {
-    ...user,
+const getNextId = async () => {
+  const snapshot = await getDocs(
+    query(phonesRef, orderBy('id', 'desc'), limit(1))
+  );
+  return snapshot.empty ? 1 : Number(snapshot.docs[0].data().id) + 1;
+};
+
+export const addPhoneApi = async phone => {
+  const id = await getNextId();
+  const data = {
+    ...phone,
+    id,
+    isSold: false,
+    soldAt: null,
     addedAt: new Date().toISOString(),
-  });
-  return phone;
+  };
+  await setDoc(doc(phonesRef, String(id)), data);
+  return { data };
 };
 
 export const deletePhoneApi = async id => {
-  const phone = await axios.delete(`/Phones/${id}`);
-  return phone.data;
+  await deleteDoc(doc(phonesRef, String(id)));
+  return id;
 };
 
 export const updateModelApi = async changeData => {
-  const { data } = await axios.put(`/Phones/${changeData.id}/`, {
-    Model: changeData.phone.Model,
-    Price: changeData.phone.Price,
-    Detailprice: changeData.phone.Detailprice,
-    Sold_for: changeData.phone.Sold_for,
-    Note: changeData.phone.Note,
-  });
-  return data;
+  const ref = doc(phonesRef, String(changeData.id));
+  const { Model, Price, Detailprice, Sold_for, Note } = changeData.phone;
+  await updateDoc(ref, { Model, Price, Detailprice, Sold_for, Note });
+  return toPhone(await getDoc(ref));
 };
 
 export const updateStatusPhoneApi = async ({ id, check }) => {
-  const { data } = await axios.put(`/Phones/${id}/`, {
+  const ref = doc(phonesRef, String(id));
+  await updateDoc(ref, {
     isSold: !check,
     soldAt: !check ? new Date().toISOString() : null,
   });
-  return data;
+  return toPhone(await getDoc(ref));
 };
